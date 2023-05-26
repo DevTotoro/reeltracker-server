@@ -1,6 +1,36 @@
 import { TypedRequest } from '../types';
 import { prisma } from '../api';
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+
+export const login_post = async (
+  req: TypedRequest<{ username: string; password: string }>,
+  res
+) => {
+  const { username, password } = req.body;
+
+  // Validate credentials
+  if (!username || !password) {
+    return res.status(400).send({ error: 'Invalid credentials' });
+  }
+
+  // Check if user exists
+  const user = await prisma.user.findUnique({ where: { username: username } });
+
+  if (!user) {
+    return res.status(401).send({ error: 'Invalid username' });
+  }
+
+  // Check if password is correct
+  if (!(await bcrypt.compare(password, user.password))) {
+    return res.status(401).send({ error: 'Invalid password' });
+  }
+
+  // Create and assign a token
+  const token = jwt.sign({ id: user.id }, process.env.SECRET_KEY);
+
+  return res.status(200).send({ token: token });
+};
 
 export const register_post = async (
   req: TypedRequest<{ email: string; username: string; password: string }>,
@@ -15,12 +45,12 @@ export const register_post = async (
 
   // Check if email already exists
   if (await prisma.user.findUnique({ where: { email: email } })) {
-    return res.status(400).send({ error: 'Email already exists' });
+    return res.status(409).send({ error: 'Email already exists' });
   }
 
   // Check if username already exists
   if (await prisma.user.findUnique({ where: { username: username } })) {
-    return res.status(400).send({ error: 'Username already exists' });
+    return res.status(409).send({ error: 'Username already exists' });
   }
 
   // Hash password
