@@ -21,5 +21,8 @@ const api = express.Router();
 import authRouter from './routes/auth.routes';
 api.use('/auth', authRouter);
 
+import movieRouter from './routes/movie.routes';
+api.use('/movie', movieRouter);
+
 // Version the api
 app.use('/api/v1', api);
