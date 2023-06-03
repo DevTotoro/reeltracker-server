@@ -24,5 +24,8 @@ api.use('/auth', authRouter);
 import movieRouter from './routes/movie.routes';
 api.use('/movie', movieRouter);
 
+import tvRouter from './routes/tv.routes';
+api.use('/tv', tvRouter);
+
 // Version the api
 app.use('/api/v1', api);
