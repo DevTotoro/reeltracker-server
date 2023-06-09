@@ -27,5 +27,11 @@ api.use('/movie', movieRouter);
 import tvRouter from './routes/tv.routes';
 api.use('/tv', tvRouter);
 
+import searchRouter from './routes/search.routes';
+api.use('/search', searchRouter);
+
+import genreRouter from './routes/genre.routes';
+api.use('/genre', genreRouter);
+
 // Version the api
 app.use('/api/v1', api);
