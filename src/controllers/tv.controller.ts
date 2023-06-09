@@ -58,7 +58,7 @@ export const genre_get = async (req, res) => {
     return res.status(400).send({ error: 'Genre ID not provided' });
   }
 
-  const url = `https://api.themoviedb.org/3/tv/popular?language=en-US&page=${page}`;
+  const url = `https://api.themoviedb.org/3/discover/tv?with_genres=${genreId}&page=${page}&language=en-US`;
   const options = {
     method: 'GET',
     headers: {
@@ -72,13 +72,7 @@ export const genre_get = async (req, res) => {
   switch (response.status) {
     case 200:
       const data = await response.json();
-
-      const filtered = data.results.filter((movie) =>
-        movie.genre_ids.includes(Number(genreId))
-      );
-
-      return res.status(200).json({ results: filtered });
-
+      return res.status(200).json(data);
     case 401:
       return res.status(401).send({ error: 'TMDB Authorization Error' });
     default:

@@ -5,7 +5,7 @@ export const search_get = async (req, res) => {
   const query = req.query.query;
 
   if (!query) {
-    return res.status(400).send({ error: 'Missing name parameter' });
+    return res.status(400).send({ error: 'Missing query parameter' });
   }
 
   const urlMovies = `https://api.themoviedb.org/3/search/movie?query=${query}&include_adult=true&language=en-US&page=${page}`;
