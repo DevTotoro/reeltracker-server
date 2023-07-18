@@ -1,7 +1,7 @@
 {
   "name": "reeltracker-server",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "dist/index.js",
   "license": "GPL-3.0-or-later",
   "author": "DevTotoro",
   "scripts": {
