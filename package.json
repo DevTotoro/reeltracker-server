@@ -1,7 +1,7 @@
 {
   "name": "reeltracker-server",
   "version": "1.0.0",
-  "main": "dist/index.js",
+  "main": "index.js",
   "license": "GPL-3.0-or-later",
   "author": "DevTotoro",
   "scripts": {
@@ -12,6 +12,9 @@
     "migrate:deploy": "prisma migrate deploy",
     "migrate:status": "prisma migrate status",
     "generate": "prisma generate"
+  },
+  "engines": {
+    "node": ">=20"
   },
   "dependencies": {
     "@prisma/client": "^5.0.0",
